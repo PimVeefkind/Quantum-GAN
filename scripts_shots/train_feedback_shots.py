@@ -17,7 +17,6 @@ def compare_pixels(generator, validation_noise,dataset_info,pca_settings,data_in
     fake_data = dataset_info['inv'](fake_data)
 
     ratio = tot_real_mean / np.mean(fake_data)
-    print(ratio)
     fake_data *= ratio
 
     fake_mean = np.mean(fake_data, axis = 0)

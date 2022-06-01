@@ -87,9 +87,9 @@ for depth in (depths):
                                     )
                                 
 
-        np.savetxt(os.getcwd() + '/results/depth/mean{}.txt'.format(depth), means)
-        np.savetxt(os.getcwd() + '/results/depth/std{}.txt'.format(depth), stds)
-        torch.save(saved_images, os.getcwd() + '/results/depth/images{}.pt'.format(depth))
+    np.savetxt(os.getcwd() + '/results/depth/mean{}.txt'.format(depth), means)
+    np.savetxt(os.getcwd() + '/results/depth/std{}.txt'.format(depth), stds)
+    torch.save(saved_images, os.getcwd() + '/results/depth/images{}.pt'.format(depth))
 
 #plot_validation_images(saved_images, image_size)
 #plot_mean_and_std(means, stds)

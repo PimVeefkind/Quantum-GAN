@@ -53,7 +53,6 @@ class PCADataset(Dataset):
 
 
         assert (np.all(data_pca > 0))
-        
 
         self.per_pixel_mean = np.mean(data, axis = 0)
         self.per_pixel_std = np.mean(data, axis = 0)
