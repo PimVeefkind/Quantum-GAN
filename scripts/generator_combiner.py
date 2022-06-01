@@ -23,7 +23,7 @@ class GeneratorCombiner(nn.Module):
 
         self.q_params = nn.ParameterList(
             [
-                nn.Parameter(q_delta * torch.rand(self.gen_depth * self.n_qubits), requires_grad=True)
+                nn.Parameter(q_delta * torch.rand(self.gen_depth * self.n_qubits * 2), requires_grad=True)
                 for _ in range(n_generators)
             ]
         )

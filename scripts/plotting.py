@@ -1,4 +1,7 @@
 import torch
+import os
+
+import numpy as np
 
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -7,7 +10,7 @@ import matplotlib.gridspec as gridspec
 def plot_validation_images(results, imag_size):
 
     fig = plt.figure(figsize=(10, 5))
-    outer = gridspec.GridSpec(5, 2, wspace=0.1)
+    outer = gridspec.GridSpec(len(results)//2+1, 2, wspace=0.1)
 
     for i, images in enumerate(results):
         inner = gridspec.GridSpecFromSubplotSpec(1, images.size(0),
@@ -24,4 +27,12 @@ def plot_validation_images(results, imag_size):
                 ax.set_title(f'Iteration {50+i*50}', loc='left')
             fig.add_subplot(ax)
 
+    plt.savefig( os.getcwd() + '/results/first_result.png')
     plt.show()
+
+def plot_mean_and_std(mean,std):
+
+    plt.plot(np.arange(len(mean)),mean)
+    plt.plot(np.arange(len(std)),std)
+
+    plt.savefig(os.getcwd() + '/results/first_mstd.png')
