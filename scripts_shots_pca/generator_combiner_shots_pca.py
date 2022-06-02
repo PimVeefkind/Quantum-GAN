@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from .generator_shots import make_generator
+from .generator_shots_pca import make_generator
 
 class GeneratorCombiner(nn.Module):
 

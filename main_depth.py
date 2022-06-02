@@ -47,7 +47,7 @@ fake_labels = torch.full((batch_size,), 0.0, dtype=torch.float, device=device)
 
 # Settings for tracking the progress
 validation_noise = torch.rand(64, gen_n_qubits, device=device) * np.pi / 2
-train_feedback = {'print': 600, 'save_imag': 50, 'display_imag': 600, 'pix_calc': 10}
+train_feedback = {'print': 600, 'save_imag': 50, 'display_imag': 600, 'pix_calc': 1}
 
 #Storage for results
 saved_images = []
@@ -55,13 +55,16 @@ means = []
 stds = []
 
 #Variational parameter
-depths = [1,2,4,6,8]
+depths = np.arange(1,7)
 
 print('Started training the QGAN...')
 
 for depth in (depths):
 
     gen_circ_param['depth'] = depth
+    saved_images = []
+    means = []
+    stds = []
 
     for i in tqdm(range(N_GD_cycles)):
 

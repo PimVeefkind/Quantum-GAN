@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 from torch.nn import BCELoss
 
-from .train_feedback_shots import print_losses, draw_images, compare_pixels, save_images
+from .train_feedback_shots_pca import print_losses, draw_images, compare_pixels, save_images
 
 bceloss = BCELoss()
 
