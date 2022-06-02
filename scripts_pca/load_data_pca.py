@@ -13,7 +13,7 @@ from torch.utils.data import Dataset
 
 def load_data(csv_name, data_info, circuit_param ,pca_dim):
 
-    assert(np.log2(pca_dim)**2 ==  2**(circuit_param['qub']-circuit_param['anc']))
+    #assert(np.log2(pca_dim)**2 ==  2**(circuit_param['qub']-circuit_param['anc']))
 
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
     dataset = PCADataset( os.getcwd() + csv_name ,data_info['n_samples'] , data_info['image_size'],\
