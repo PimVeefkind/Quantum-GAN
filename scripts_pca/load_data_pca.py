@@ -39,7 +39,8 @@ class PCADataset(Dataset):
         self.csv_file = csv_file
         self.imag_size = imag_size
         self.transform = transform
-        self.pca_size = int(np.log2(pca_dim))
+        self.pca_size = int(np.sqrt(pca_dim))
+        self.pca_q = int(np.log2(pca_dim))
 
         n_pix_per_gen = 2**(circuit_param['qub']-circuit_param['anc'])
 

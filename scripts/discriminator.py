@@ -8,9 +8,11 @@ class Discriminator(nn.Module):
 
         self.model = nn.Sequential(
             # Inputs to first hidden layer (num_input_features -> 64)
-            nn.Linear(input_size * input_size, 32),
+            nn.Linear(2**input_size, 128),
             nn.ReLU(),
             # First hidden layer (64 -> 16)
+            nn.Linear(128, 32),
+            nn.ReLU(),
             nn.Linear(32, 16),
             nn.ReLU(),
             # Second hidden layer (16 -> output)

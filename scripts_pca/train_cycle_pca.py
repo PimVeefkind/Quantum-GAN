@@ -19,7 +19,7 @@ def train_cycle(generator, opt_gen, qcirc_param ,discriminator, opt_disc, real_l
     for i, (data, _) in enumerate(dataloader):
 
         # These are the real samples
-        data = data.reshape(-1, pca_settings['q'] * pca_settings['q'])
+        data = data.reshape(-1, pca_settings['size'] * pca_settings['size'])
         real_data = data.to(device)
 
         # Fake_data is produced from random noise

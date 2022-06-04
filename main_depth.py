@@ -12,7 +12,7 @@ from scripts.plotting import plot_validation_images, plot_mean_and_std
 from scripts.load_data import load_data
 
 #General settings
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 N_GD_cycles = 500
 
 #Generator parameters
@@ -35,7 +35,7 @@ dataloader, dataset = load_data("/datasets/mnist_only0_8x8.csv" ,data_info, gen_
 dataset_info = {'means': dataset.per_pixel_mean, 'stds': dataset.per_pixel_std}
  
 #Initialize generator and discriminator
-discriminator = Discriminator(image_size).to(device)
+discriminator = Discriminator(int(np.log2(2**image_size/gen_generators))).to(device)
 generator = GeneratorCombiner(qdev, device, gen_circ_param, gen_generators).to(device)
 
 optimizer_gen = torch.optim.SGD(generator.parameters(), lr = 0.3)

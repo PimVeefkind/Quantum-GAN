@@ -29,9 +29,9 @@ def draw_images(fake_data, real_data, size):
     fake_data = fake_data.view(1,size * size)
     real_data = real_data.view(1,size * size)
 
-    plt.imshow(fake_data.cpu().detach().numpy().reshape(size,size) , cmap = 'gray', vmin =0 , vmax = 1)
+    plt.imshow(fake_data.cpu().detach().numpy().reshape(size,size) , cmap = 'gray')
     plt.savefig('test.png')
-    plt.imshow(real_data.cpu().detach().numpy().reshape(size,size) , cmap = 'gray', vmin =0 , vmax = 1)
+    plt.imshow(real_data.cpu().detach().numpy().reshape(size,size) , cmap = 'gray')
     plt.savefig('real.png')
     
 

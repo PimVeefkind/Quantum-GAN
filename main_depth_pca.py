@@ -12,7 +12,7 @@ from scripts_pca.train_cycle_pca import train_cycle
 from scripts_pca.plotting_pca import plot_validation_images, plot_mean_and_std
 
 #General settings
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 N_GD_cycles = 400
 
 #PCA settings
@@ -96,6 +96,6 @@ for depth in (depths):
 
     np.savetxt(os.getcwd() + '/results/depth_pca/mean{}.txt'.format(depth), means)
     np.savetxt(os.getcwd() + '/results/depth_pca/std{}.txt'.format(depth), stds)
-    torch.save(saved_images, os.getcwd() + '/results/depth/images{}.pt'.format(depth))
+    #torch.save(saved_images, os.getcwd() + '/results/depth/images{}.pt'.format(depth))
 
 
