@@ -17,7 +17,7 @@ reverse_listing = [[],[],[],[]]
 for depth in depths:
 
     filename = os.getcwd() + '/results/depth_pca/images{}.pt'.format(depth)
-    result300 = torch.squeeze(torch.load(filename)[6], dim = 1)
+    result300 = torch.load(filename)[4]
 
     for j, im in enumerate(result300[:n_examples]):
         reverse_listing[j].append(im)
@@ -29,7 +29,7 @@ for i, images in enumerate(reverse_listing):
     for j, im in enumerate(images):
 
         ax = plt.Subplot(fig, inner[j])
-        ax.imshow(im.numpy().reshape(imag_size,imag_size), cmap="gray")
+        ax.imshow(im.reshape(imag_size,imag_size), cmap="gray")
         ax.set_xticks([])
         ax.set_yticks([])
         if j==0:
@@ -38,8 +38,8 @@ for i, images in enumerate(reverse_listing):
             ax.set_xlabel('Depth {}'.format(j+1), rotation = 30)
         fig.add_subplot(ax)
 
-fig.suptitle('QGAN performance at iteration 300', fontsize = 20)
+fig.suptitle('QGAN performance at iteration 200', fontsize = 20)
 
-plt.savefig( os.getcwd() + '/results/plots/it300.pdf')
-plt.savefig( os.getcwd() + '/results/plots/it300.png')
+plt.savefig( os.getcwd() + '/results/plots/it200_pca.pdf')
+plt.savefig( os.getcwd() + '/results/plots/it200_pca.png')
 plt.show()

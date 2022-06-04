@@ -18,7 +18,8 @@ N_GD_cycles = 400
 #PCA settings
 pca_dim  = 16
 pca_q = int(np.log2(pca_dim))
-pca_settings = {'dim': pca_dim, 'q': pca_q}
+pca_size = int(np.sqrt(pca_dim))
+pca_settings = {'dim': pca_dim, 'q': pca_q, 'size': pca_size}
 
 #Generator parameters
 gen_generators = 1
@@ -96,6 +97,6 @@ for depth in (depths):
 
     np.savetxt(os.getcwd() + '/results/depth_pca/mean{}.txt'.format(depth), means)
     np.savetxt(os.getcwd() + '/results/depth_pca/std{}.txt'.format(depth), stds)
-    #torch.save(saved_images, os.getcwd() + '/results/depth/images{}.pt'.format(depth))
+    torch.save(saved_images, os.getcwd() + '/results/depth_pca/images{}.pt'.format(depth))
 
 

@@ -52,6 +52,6 @@ def draw_images(fake_data, real_data,dataset_info , pca_settings,data_info):
 def save_images(generator, validation_noise,dataset_info ,pca_settings,data_info):
 
     fake_data = generator(validation_noise[:8,:]).view(8,pca_settings['dim'])
-    test_images = fake_data.cpu().detach()
+    test_images = dataset_info['inv'](fake_data.cpu().detach().numpy())
     
     return test_images
