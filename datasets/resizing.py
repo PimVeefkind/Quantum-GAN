@@ -27,6 +27,8 @@ for i in range(x_data.shape[0]):
 
     transformed_data[i,1:] = image_resized.flatten()
 
+transformed_data[:,1:] = transformed_data[:,1:] - np.mean(transformed_data[:,1:]) / np.std(transformed_data[:,1:])
+
 np.savetxt('mnist_only0_8x8.csv', transformed_data)
 
 
