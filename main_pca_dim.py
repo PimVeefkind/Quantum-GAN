@@ -11,62 +11,66 @@ from scripts_pca.load_data_pca import load_data
 from scripts_pca.train_cycle_pca import train_cycle
 from scripts_pca.plotting_pca import plot_validation_images, plot_mean_and_std
 
-#General settings
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-N_GD_cycles = 400
+pca_dims = [4,16,64]
 
-#PCA settings
-pca_dim  = 4
-pca_q = int(np.log2(pca_dim))
-pca_settings = {'dim': pca_dim, 'q': pca_q}
+for pca_dim in pca_dims:
 
-#Generator parameters
-gen_generators = 1
-gen_n_anc_qubits = 1
-gen_n_qubits = pca_q + gen_n_anc_qubits
-gen_circuit_depth = 5
-gen_circ_param = {'qub': gen_n_qubits, 'anc': gen_n_anc_qubits,\
-                  'depth': gen_circuit_depth, }
+    #General settings
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    N_GD_cycles = 500
 
-qdev = qml.device("lightning.qubit", wires=gen_n_qubits)
+    #PCA settings
+    pca_dim  = pca_dim
+    pca_q = int(np.log2(pca_dim))
+    pca_size = int(np.sqrt(pca_dim))
+    pca_settings = {'dim': pca_dim, 'q': pca_q, 'size': pca_size}
+
+    #Generator parameters
+    gen_generators = 1
+    gen_n_anc_qubits = 1
+    gen_n_qubits = pca_q + gen_n_anc_qubits
+    gen_circuit_depth = 4
+    gen_circ_param = {'qub': gen_n_qubits, 'anc': gen_n_anc_qubits,\
+                    'depth': gen_circuit_depth, }
+
+    qdev = qml.device("lightning.qubit", wires=gen_n_qubits)
 
 
-#importing the data
-batch_size = 1
-image_size = 8
-n_samples = 200
-data_info = {'batch_size': batch_size, 'image_size': image_size, 'n_samples': n_samples}
+    #importing the data
+    batch_size = 1
+    image_size = 8
+    n_samples = 200
+    data_info = {'batch_size': batch_size, 'image_size': image_size, 'n_samples': n_samples}
 
-dataloader, dataset = load_data("/datasets/mnist_only0_8x8.csv" ,data_info, gen_circ_param, pca_dim)
-dataset_info = {'means': dataset.per_pixel_mean, 'stds': dataset.per_pixel_std, 'inv': dataset.reverser}
- 
-#Initialize generator and discriminator
-discriminator = Discriminator(pca_q).to(device)
-generator = GeneratorCombiner(qdev, device, gen_circ_param, gen_generators).to(device)
+    dataloader, dataset = load_data("/datasets/mnist_fashion_ankleboots_28x28.csv" ,data_info, gen_circ_param, pca_dim)
+    dataset_info = {'means': dataset.per_pixel_mean, 'stds': dataset.per_pixel_std, 'inv': dataset.reverser}
 
-optimizer_gen = torch.optim.SGD(generator.parameters(), lr = 0.3)
-optimizer_disc = torch.optim.SGD(discriminator.parameters(), lr = 0.01)
+    #Initialize generator and discriminator
+    discriminator = Discriminator(pca_q).to(device)
+    generator = GeneratorCombiner(qdev, device, gen_circ_param, gen_generators).to(device)
 
-#labels associated with real and fake data
-real_labels = torch.full((batch_size,), 1.0, dtype=torch.float, device=device)
-fake_labels = torch.full((batch_size,), 0.0, dtype=torch.float, device=device)
+    optimizer_gen = torch.optim.SGD(generator.parameters(), lr = 0.3)
+    optimizer_disc = torch.optim.SGD(discriminator.parameters(), lr = 0.01)
 
-# Settings for tracking the progress
-validation_noise = torch.rand(64, gen_n_qubits, device=device) * np.pi / 2
-train_feedback = {'print': 10, 'save_imag': 50, 'display_imag': 50, 'pix_calc': 10}
+    #labels associated with real and fake data
+    real_labels = torch.full((batch_size,), 1.0, dtype=torch.float, device=device)
+    fake_labels = torch.full((batch_size,), 0.0, dtype=torch.float, device=device)
 
-#Storage for results
-saved_images = []
-means = []
-stds = []
+    # Settings for tracking the progress
+    validation_noise = torch.rand(64, gen_n_qubits, device=device) * np.pi / 2
+    train_feedback = {'print': 600, 'save_imag': 50, 'display_imag': 600, 'pix_calc': 1}
 
-print('Started training the QGAN...')
+    #Storage for results
+    saved_images = []
+    means = []
+    stds = []
 
-errG = 0
+    print('Started training the QGAN...')
 
-for i in (range(N_GD_cycles)):
 
-    saved_images, means, stds = train_cycle(
+    for i in tqdm(range(N_GD_cycles)):
+
+        saved_images, means, stds = train_cycle(
 
                                 generator = generator,
                                 opt_gen = optimizer_gen,
@@ -87,13 +91,17 @@ for i in (range(N_GD_cycles)):
                                 iteration_numb= i+1,
                                 pca_settings = pca_settings,
                                 )
+                        
+    np.savetxt(os.getcwd() + '/results/pca_dims/mean{}.txt'.format(pca_dim), means)
+    np.savetxt(os.getcwd() + '/results/pca_dims/std{}.txt'.format(pca_dim), stds)
+    torch.save(saved_images, os.getcwd() + '/results/pca_dims/images{}.pt'.format(pca_dim))
                             
     #if i == 50:
         #plot_validation_images(saved_images, image_size)
-print(means,stds)
+#print(means,stds)
 
-plot_validation_images(saved_images, image_size, dataset_info)
-plot_mean_and_std(means, stds)
+#plot_validation_images(saved_images, image_size, dataset_info)
+#plot_mean_and_std(means, stds)
     
 
 

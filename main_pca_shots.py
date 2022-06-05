@@ -16,9 +16,11 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 N_GD_cycles = 400
 
 #PCA settings
-pca_dim  = 4
+pca_dim  = 16
 pca_q = int(np.log2(pca_dim))
 pca_settings = {'dim': pca_dim, 'q': pca_q}
+pca_size = int(np.sqrt(pca_dim))
+pca_settings = {'dim': pca_dim, 'q': pca_q, 'size': pca_size}
 
 #Generator parameters
 gen_generators = 1
@@ -35,7 +37,7 @@ image_size = 8
 n_samples = 200
 data_info = {'batch_size': batch_size, 'image_size': image_size, 'n_samples': n_samples}
 
-dataloader, dataset = load_data("/datasets/mnist_only0_8x8.csv" ,data_info, gen_circ_param, pca_dim)
+dataloader, dataset = load_data("/datasets/mnist_fashion_ankleboots_28x28.csv" ,data_info, gen_circ_param, pca_dim)
 dataset_info = {'means': dataset.per_pixel_mean, 'stds': dataset.per_pixel_std, 'inv': dataset.reverser}
 
 #labels associated with real and fake data
@@ -44,7 +46,7 @@ fake_labels = torch.full((batch_size,), 0.0, dtype=torch.float, device=device)
 
 # Settings for tracking the progress
 validation_noise = torch.rand(64, gen_n_qubits, device=device) * np.pi / 2
-train_feedback = {'print': 600, 'save_imag': 50, 'display_imag': 600, 'pix_calc': 3}
+train_feedback = {'print': 600, 'save_imag': 50, 'display_imag': 600, 'pix_calc': 1}
 
 
 #Variable parameter
