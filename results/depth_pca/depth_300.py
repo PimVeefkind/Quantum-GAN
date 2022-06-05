@@ -16,7 +16,7 @@ reverse_listing = [[],[],[],[]]
 
 for depth in depths:
 
-    filename = os.getcwd() + '/results/depth_pca/images{}.pt'.format(depth)
+    filename = os.getcwd() + '/results/pca_dims/images{}.pt'.format(depth)
     result300 = torch.load(filename)[4]
 
     for j, im in enumerate(result300[:n_examples]):
