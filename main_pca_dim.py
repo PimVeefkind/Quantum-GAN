@@ -10,6 +10,9 @@ from scripts.vanilla.discriminator import Discriminator
 from scripts.pca.load_data_pca import load_data
 from scripts.pca.train_cycle_pca import train_cycle
 
+'''Head used for the experiment that sweeps the number of retained
+dimensions in PCA.'''
+
 pca_dims = [4,16,64]
 
 for pca_dim in pca_dims:

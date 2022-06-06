@@ -10,6 +10,9 @@ from scripts.vanilla.discriminator import Discriminator
 from scripts.pca.load_data_pca import load_data
 from scripts.pca.train_cycle_pca import train_cycle
 
+'''Head for the experiment that sweeps the depth parameter over the
+parallel generator implementation'''
+
 #General settings
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 N_GD_cycles = 400
