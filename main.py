@@ -5,11 +5,10 @@ import os
 
 from tqdm import tqdm
 
-from scripts.generator_combiner import GeneratorCombiner
-from scripts.discriminator import Discriminator
-from scripts.train_cycle import train_cycle
-from scripts.plotting import plot_validation_images, plot_mean_and_std
-from scripts.load_data import load_data
+from scripts.vanilla.generator_combiner import GeneratorCombiner
+from scripts.vanilla.discriminator import Discriminator
+from scripts.vanilla.train_cycle import train_cycle
+from scripts.vanilla.load_data import load_data
 
 #General settings
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -86,9 +85,6 @@ print(means,stds)
 np.savetxt(os.getcwd() + '/results/means/first.txt', means)
 np.savetxt(os.getcwd() + '/results/means/first.txt', stds)
 
-plot_validation_images(saved_images, image_size)
-plot_mean_and_std(means, stds)
-    
 
 
 
