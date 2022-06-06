@@ -32,7 +32,7 @@ gen_circ_param = {'qub': gen_n_qubits, 'anc': gen_n_anc_qubits,\
 
 #importing the data
 batch_size = 1
-image_size = 8
+image_size = 28
 n_samples = 200
 data_info = {'batch_size': batch_size, 'image_size': image_size, 'n_samples': n_samples}
 
@@ -45,11 +45,11 @@ fake_labels = torch.full((batch_size,), 0.0, dtype=torch.float, device=device)
 
 # Settings for tracking the progress
 validation_noise = torch.rand(64, gen_n_qubits, device=device) * np.pi / 2
-train_feedback = {'print': 600, 'save_imag': 50, 'display_imag': 600, 'pix_calc': 1}
+train_feedback = {'print': 600, 'save_imag': 25, 'display_imag': 600, 'pix_calc': 1}
 
 
 #Variable parameter
-n_shots = [10,25,50,100,250,500,1000,5000,10000]
+n_shots = [10,25,50,100,250,500,1000]
 
 print('Started training the QGAN...')
 

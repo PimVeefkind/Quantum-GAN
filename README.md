@@ -15,4 +15,3 @@ The code is divided into the following files and folders:
 - **scripts**: Files holding the data loading, training process and the definition of the generator and discriminator. The generator is fully parametrized and all its parameters can be accessed via the experiment heads (the main_... files). Because the aim of the project was not at optimizing the classical discriminator, its network is hardcoded.
 - **main_... files**: Heads that are used to perform the different experiments discussed in the paper. They allow for many different settings.
 - **results**: Here the results of the experiments that can be performed via the heads are stored. The 'raw_results' folder are auto-populated with the data collected when running an experimental head. The plot_files can then be used to generate the plots stored in the third folder.
-

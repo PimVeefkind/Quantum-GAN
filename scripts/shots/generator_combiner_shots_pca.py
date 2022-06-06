@@ -51,7 +51,15 @@ class GeneratorCombiner(nn.Module):
 
     def partial_measure(self, noise, weights,n_qubits,n_ancillas):
         # Non-linear Transform
-        probs = self.quantum_circuit(noise, weights)
+        probs = torch.zeros(2**n_qubits, device = self.device)
+        measurements = self.quantum_circuit(noise, weights)
+
+        for measurement in measurements:
+            c = 0
+            for i,outc in enumerate(measurement):
+                c += int(2**(n_qubits-i-1)*outc)
+            probs[c] += 1
+
         probsgiven0 = probs[: (2 ** (n_qubits - n_ancillas))]
         probsgiven0 /= torch.sum(probs)
 
