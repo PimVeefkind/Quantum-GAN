@@ -10,6 +10,9 @@ from scripts.vanilla.discriminator import Discriminator
 from scripts.vanilla.train_cycle import train_cycle
 from scripts.vanilla.load_data import load_data
 
+'''Head for the experiment that sweeps the depth parameter over the
+PCA implementation'''
+
 #General settings
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 N_GD_cycles = 500

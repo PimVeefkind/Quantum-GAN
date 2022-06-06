@@ -10,6 +10,9 @@ from scripts.vanilla.discriminator import Discriminator
 from scripts.pca.load_data_pca import load_data
 from scripts.shots.train_cycle_shots_pca import train_cycle
 
+'''Head used for experiment that sweeps the number of repetitions of the
+same quantum circuit to gather statistics on the true probability distriution.'''
+
 #General settings
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 N_GD_cycles = 400

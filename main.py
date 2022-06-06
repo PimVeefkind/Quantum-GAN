@@ -24,6 +24,10 @@ gen_circ_param = {'qub': gen_n_qubits, 'anc': gen_n_anc_qubits,\
 
 qdev = qml.device("lightning.qubit", wires=gen_n_qubits)
 
+''' Head that just implements the parallel implementation of the QGAN.
+Not associated with one of the experiments performed in the paper
+at all. Can be used as a playground.'''
+
 #importing the data
 batch_size = 1
 image_size = 8
