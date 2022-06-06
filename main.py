@@ -34,7 +34,7 @@ dataloader, dataset = load_data("/datasets/mnist_only0_8x8.csv" ,data_info, gen_
 dataset_info = {'means': dataset.per_pixel_mean, 'stds': dataset.per_pixel_std}
  
 #Initialize generator and discriminator
-discriminator = Discriminator(image_size).to(device)
+discriminator = Discriminator(int(np.log2(2**image_size/gen_generators))).to(device)
 generator = GeneratorCombiner(qdev, device, gen_circ_param, gen_generators).to(device)
 
 optimizer_gen = torch.optim.SGD(generator.parameters(), lr = 0.3)
