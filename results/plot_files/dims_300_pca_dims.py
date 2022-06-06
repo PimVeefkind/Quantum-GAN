@@ -4,9 +4,11 @@ import matplotlib.gridspec as gridspec
 import torch
 import os
 
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
+
 dims = [4,16,64]
 
-fig = plt.figure(figsize=(10, 5))
+fig = plt.figure(figsize=(5, 5))
 
 outer = gridspec.GridSpec(4, 1, wspace=0.005, hspace = 0.05)
 imag_size = 28
@@ -16,10 +18,10 @@ reverse_listing = [[],[],[],[]]
 
 for dim in dims:
 
-    filename = os.getcwd() + '/results/pca_dims/images{}.pt'.format(dim)
-    result300 = torch.load(filename)[6]
+    filename = os.getcwd() + '/results/raw_results/pca_dims/images{}.pt'.format(dim)
+    result300 = torch.load(filename)[7]
 
-    for j, im in enumerate(result300[:n_examples]):
+    for j, im in enumerate(result300[:2*n_examples:2]):
         reverse_listing[j].append(im)
 
 for i, images in enumerate(reverse_listing):
@@ -35,11 +37,12 @@ for i, images in enumerate(reverse_listing):
         if j==0:
             ax.set_ylabel('Example {}'.format(4-i),)
         if i==3:
-            ax.set_xlabel('Depth {}'.format(j+1), rotation = 30)
+            ax.set_xlabel('# Dimensions {}'.format(dims[j]), rotation = 15)
         fig.add_subplot(ax)
 
-fig.suptitle('QGAN performance at iteration 200', fontsize = 20)
+fig.suptitle('QGAN performance at iteration 350', fontsize = 20)
 
-plt.savefig( os.getcwd() + '/results/plots/it300_pca_dim.pdf')
-plt.savefig( os.getcwd() + '/results/plots/it300_pca_dim.png')
+plt.tight_layout()
+plt.savefig( os.getcwd() + '/results/plots/pdf/it300_pca_dim.pdf', bbox_inches='tight')
+plt.savefig( os.getcwd() + '/results/plots/png/it300_pca_dim.png', bbox_inches='tight')
 plt.show()

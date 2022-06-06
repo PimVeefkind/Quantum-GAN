@@ -94,9 +94,9 @@ for n_shot in n_shots:
                                     pca_settings = pca_settings,
                                     )
 
-        np.savetxt(os.getcwd() + '/results/shots/mean{}.txt'.format(n_shot), means)
-        np.savetxt(os.getcwd() + '/results/shots/std{}.txt'.format(n_shot), stds)
-        torch.save(saved_images, os.getcwd() + '/results/shots/images{}.pt'.format(n_shot))
+        np.savetxt(os.getcwd() + '/results/raw_results/shots/mean{}.txt'.format(n_shot), means)
+        np.savetxt(os.getcwd() + '/results/raw_results/shots/std{}.txt'.format(n_shot), stds)
+        torch.save(saved_images, os.getcwd() + '/results/raw_results/shots/images{}.pt'.format(n_shot))
                             
     #if i == 50:
         #plot_validation_images(saved_images, image_size)

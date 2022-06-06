@@ -16,7 +16,7 @@ reverse_listing = [[],[],[],[]]
 
 for depth in depths:
 
-    filename = os.getcwd() + '/results/depth_pca/images{}.pt'.format(depth)
+    filename = os.getcwd() + '/results/raw_results/depth_pca/images{}.pt'.format(depth)
     result300 = torch.squeeze(torch.load(filename)[6], dim = 1)
 
     for j, im in enumerate(result300[:n_examples]):
@@ -40,6 +40,6 @@ for i, images in enumerate(reverse_listing):
 
 fig.suptitle('QGAN performance at iteration 300', fontsize = 20)
 
-plt.savefig( os.getcwd() + '/results/plots/it300.pdf')
-plt.savefig( os.getcwd() + '/results/plots/it300.png')
+plt.savefig( os.getcwd() + '/results/plots/pdf/it300.pdf')
+plt.savefig( os.getcwd() + '/results/plots/png/it300.png')
 plt.show()

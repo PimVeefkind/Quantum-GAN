@@ -91,9 +91,9 @@ for pca_dim in pca_dims:
                                 pca_settings = pca_settings,
                                 )
                         
-    np.savetxt(os.getcwd() + '/results/pca_dims/mean{}.txt'.format(pca_dim), means)
-    np.savetxt(os.getcwd() + '/results/pca_dims/std{}.txt'.format(pca_dim), stds)
-    torch.save(saved_images, os.getcwd() + '/results/pca_dims/images{}.pt'.format(pca_dim))
+    np.savetxt(os.getcwd() + '/results/raw_results/pca_dims/mean{}.txt'.format(pca_dim), means)
+    np.savetxt(os.getcwd() + '/results/raw_results/pca_dims/std{}.txt'.format(pca_dim), stds)
+    torch.save(saved_images, os.getcwd() + '/results/raw_results/pca_dims/images{}.pt'.format(pca_dim))
                             
     #if i == 50:
         #plot_validation_images(saved_images, image_size)
