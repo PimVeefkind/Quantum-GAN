@@ -10,6 +10,7 @@ import torchvision
 from torch.utils.data import Dataset
 
 def load_data(csv_name, data_info, circuit_param ,generators):
+    '''Constructs dataloader from Dataset object.'''
 
     assert(data_info['image_size']**2 == generators * 2**(circuit_param['qub']-circuit_param['anc']))
 
@@ -25,15 +26,12 @@ def load_data(csv_name, data_info, circuit_param ,generators):
 
 
 class NoPCADataset(Dataset):
-    """Pytorch dataloader for the Optical Recognition of Handwritten Digits Data Set"""
+    """Customized dataset for MNIST/MNIST-fashion data where we do not apply dimensionality
+    reduction (PCA). Normalization is performed for every sample and for every patch of 
+    that sample in case of multiple generators."""
 
     def __init__(self, csv_file, n_samples ,imag_size, circuit_param ,generators ,transform=None):
-        """
-        Args:
-            csv_file (string): Path to the csv file with annotations.
-            transform (callable, optional): Optional transform to be applied
-                on a sample.
-        """
+
         self.csv_file = csv_file
         self.imag_size = imag_size
         self.transform = transform

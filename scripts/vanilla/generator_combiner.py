@@ -6,6 +6,11 @@ from .generator import make_generator
 
 
 class GeneratorCombiner(nn.Module):
+    '''This class is incorperates the quantum circuit stored in 'generator' as a 
+    pytorch layer. The entire circuit (or N_gen times that in case of parallel 
+    generators) is one layer stored as a ParameterList. The partial measure function
+    excludes all measurements where the ancilla(s) are in the 0 state. This allows
+    the probability distribution to sum up to less than 1 introducing non-linearity.'''
 
     def __init__(self, qdev ,device ,gen_circuit_params ,n_generators, q_delta=1):
 

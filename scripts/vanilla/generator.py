@@ -1,16 +1,18 @@
 import pennylane as qml
-import torch
 
 def make_generator(dev, gen_circuit_params):
+    '''Outer function is to make it easy to call the qnode.'''
 
     n_qubits = gen_circuit_params['qub']
-    n_ancillas = gen_circuit_params['anc']
     gen_depth = gen_circuit_params['depth']
-
 
 
     @qml.qnode(dev, interface="torch", diff_method="parameter-shift")
     def quantum_circuit(noise, weights):
+        ''' Code for a single generator implemented in pennylane. 
+            The first loop configures the gates introducing the noise
+            the second for loop implements the parametrized single
+            qubits rotations and entangling layers.'''
 
         weights = weights.reshape(gen_depth, n_qubits, 2)
 

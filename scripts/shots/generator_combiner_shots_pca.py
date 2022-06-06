@@ -4,8 +4,14 @@ import torch.nn as nn
 from .generator_shots_pca import make_generator
 
 class GeneratorCombiner(nn.Module):
+    '''This class is incorperates the quantum circuit stored in 'generator' as a 
+    pytorch layer. The entire circuit (or N_gen times that in case of parallel 
+    generators) is one layer stored as a ParameterList. The partial measure function
+    excludes all measurements where the ancilla(s) are in the 0 state. This allows
+    the probability distribution to sum up to less than 1 introducing non-linearity.'''
 
     def __init__(self, qdev ,device ,gen_circuit_params ,n_generators, q_delta=1):
+        
 
         super().__init__()
 
@@ -50,6 +56,13 @@ class GeneratorCombiner(nn.Module):
 
 
     def partial_measure(self, noise, weights,n_qubits,n_ancillas):
+        '''The for loop here is to convert the measurement output
+        to an approximation of the probability distribution.
+        It is a heinously inefficient implementation that really
+        should be improved but because it wasn't used that much
+        during the project this has not happened because waiting did
+        not really cause inconvenience.'''
+
         # Non-linear Transform
         probs = torch.zeros(2**n_qubits, device = self.device)
         measurements = self.quantum_circuit(noise, weights)
@@ -63,6 +76,6 @@ class GeneratorCombiner(nn.Module):
         probsgiven0 = probs[: (2 ** (n_qubits - n_ancillas))]
         probsgiven0 /= torch.sum(probs)
 
-            # Post-Processing
+        # Post-Processing
         probsgiven = probsgiven0 / torch.max(probsgiven0)
         return probsgiven

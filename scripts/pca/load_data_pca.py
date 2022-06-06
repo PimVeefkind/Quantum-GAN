@@ -12,8 +12,7 @@ from sklearn.decomposition import PCA
 from torch.utils.data import Dataset
 
 def load_data(csv_name, data_info, circuit_param ,pca_dim):
-
-    #assert(np.log2(pca_dim)**2 ==  2**(circuit_param['qub']-circuit_param['anc']))
+    '''Constructs dataloader from Dataset object.'''
 
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
     dataset = PCADataset( os.getcwd() + csv_name ,data_info['n_samples'] , data_info['image_size'],\
@@ -27,15 +26,12 @@ def load_data(csv_name, data_info, circuit_param ,pca_dim):
 
 
 class PCADataset(Dataset):
-    """Pytorch dataloader for the Optical Recognition of Handwritten Digits Data Set"""
+    """Customized dataset for MNIST/MNIST-fashion data where we also apply
+    PCA. Normalization is performed for every sample and for every patch of 
+    that sample in case of multiple generators."""
 
     def __init__(self, csv_file, n_samples ,imag_size, circuit_param ,pca_dim ,transform=None):
-        """
-        Args:
-            csv_file (string): Path to the csv file with annotations.
-            transform (callable, optional): Optional transform to be applied
-                on a sample.
-        """
+
         self.csv_file = csv_file
         self.imag_size = imag_size
         self.transform = transform
