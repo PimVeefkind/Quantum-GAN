@@ -12,6 +12,11 @@ bceloss = BCELoss()
 def train_cycle(generator, opt_gen, qcirc_param ,discriminator, opt_disc, real_labels , \
                 fake_labels, validation_noise, saved_images, means, stds, train_feedback,\
                 dataloader, dataset_info, data_info, device, iteration_numb, pca_settings):
+    
+    '''Training cycle for training the discriminator and generator. First the real samples are gathered
+    from the dataloader. Then, fake data is produced. These are then passed on to the relevant training
+    functions (train_discriminator/train_generator). Finally, conditions are checked to save or display
+    data for monitoring/analysis.'''
 
     errD_tot = '-'
 
@@ -58,6 +63,8 @@ def train_cycle(generator, opt_gen, qcirc_param ,discriminator, opt_disc, real_l
 
 def train_discriminator(opt_disc,discriminator,real_data, fake_data,\
                         real_labels, fake_labels):
+    '''Trains the discriminator using the real and fake images and the
+    binary cross entropy loss.'''
 
     discriminator.zero_grad()
     outD_real = discriminator(real_data).view(-1)
@@ -77,6 +84,8 @@ def train_discriminator(opt_disc,discriminator,real_data, fake_data,\
 
 
 def train_generator(opt_gen,generator, discriminator, fake_data, real_labels):
+    '''Trains the discriminator using the fake images and the
+    binary cross entropy loss.'''
 
     generator.zero_grad()
     outD_fake = discriminator(fake_data).view(-1)

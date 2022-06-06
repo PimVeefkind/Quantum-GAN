@@ -1,7 +1,7 @@
 import torch.nn as nn
 
 class Discriminator(nn.Module):
-    """Fully connected classical discriminator"""
+    """Fully connected classical discriminator."""
 
     def __init__(self, input_size):
         super().__init__()
