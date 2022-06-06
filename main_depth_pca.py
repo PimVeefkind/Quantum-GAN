@@ -5,11 +5,10 @@ import os
 
 from tqdm import tqdm
 
-from scripts.generator_combiner import GeneratorCombiner
-from scripts.discriminator import Discriminator
-from scripts_pca.load_data_pca import load_data
-from scripts_pca.train_cycle_pca import train_cycle
-from scripts_pca.plotting_pca import plot_validation_images, plot_mean_and_std
+from scripts.vanilla.generator_combiner import GeneratorCombiner
+from scripts.vanilla.discriminator import Discriminator
+from scripts.pca.load_data_pca import load_data
+from scripts.pca.train_cycle_pca import train_cycle
 
 #General settings
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")

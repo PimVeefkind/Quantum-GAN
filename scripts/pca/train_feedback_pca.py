@@ -43,9 +43,9 @@ def draw_images(fake_data, real_data,dataset_info , pca_settings,data_info):
     fake_data_true = dataset_info['inv'](fake_data_pca).reshape(data_info['image_size'], data_info['image_size'])
 
     plt.imshow(fake_data_true , cmap = 'gray', vmin =0 , vmax = 1)
-    plt.savefig('test.png')
+    plt.savefig('live_test.png')
     plt.imshow(real_data_true , cmap = 'gray', vmin =0 , vmax = 1)
-    plt.savefig('real.png')
+    plt.savefig('live_real.png')
     
 
 
