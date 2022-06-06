@@ -94,8 +94,8 @@ for depth in (depths):
                                     )
                                 
 
-    np.savetxt(os.getcwd() + '/results/depth_pca/mean{}.txt'.format(depth), means)
-    np.savetxt(os.getcwd() + '/results/depth_pca/std{}.txt'.format(depth), stds)
-    torch.save(saved_images, os.getcwd() + '/results/depth_pca/images{}.pt'.format(depth))
+    np.savetxt(os.getcwd() + '/results/raw_results/depth_pca/mean{}.txt'.format(depth), means)
+    np.savetxt(os.getcwd() + '/results/raw_results/depth_pca/std{}.txt'.format(depth), stds)
+    torch.save(saved_images, os.getcwd() + '/results/raw_results/depth_pca/images{}.pt'.format(depth))
 
 

@@ -88,9 +88,9 @@ for i in tqdm(range(N_GD_cycles)):
                                 pca_settings = pca_settings,
                                 )
 
-np.savetxt(os.getcwd() + '/results/pca/mean.txt', means)
-np.savetxt(os.getcwd() + '/results/pca/std.txt', stds)
-torch.save(saved_images, os.getcwd() + '/results/pca/images.pt')
+np.savetxt(os.getcwd() + '/results/raw_results/pca/mean.txt', means)
+np.savetxt(os.getcwd() + '/results/raw_results/pca/std.txt', stds)
+torch.save(saved_images, os.getcwd() + '/results/raw_results/pca/images.pt')
                             
     #if i == 50:
         #plot_validation_images(saved_images, image_size)

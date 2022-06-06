@@ -4,7 +4,7 @@ import matplotlib.gridspec as gridspec
 import torch
 import os
 
-filename = os.getcwd() + '/results/depth/images1.pt'
+filename = os.getcwd() + '/results/raw_results/depth/images1.pt'
 
 results = torch.load(filename)
 
@@ -41,6 +41,6 @@ for i, images in enumerate(reverse_listing):
 
 fig.suptitle('QGAN training progress with parallel GANs ', fontsize = 20)
 
-plt.savefig( os.getcwd() + '/results/plots/imagedepth1.pdf')
-plt.savefig( os.getcwd() + '/results/plots/imagedepth1.png')
+plt.savefig( os.getcwd() + '/results/plots/pdf/imagedepth1.pdf')
+plt.savefig( os.getcwd() + '/results/plots/png/imagedepth1.png')
 plt.show()

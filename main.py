@@ -82,8 +82,8 @@ for i in (range(N_GD_cycles)):
     #if i == 50:
         #plot_validation_images(saved_images, image_size)
 print(means,stds)
-np.savetxt(os.getcwd() + '/results/means/first.txt', means)
-np.savetxt(os.getcwd() + '/results/means/first.txt', stds)
+np.savetxt(os.getcwd() + '/results/raw_results/means/first.txt', means)
+np.savetxt(os.getcwd() + '/results/raw_results/means/first.txt', stds)
 
 
 
